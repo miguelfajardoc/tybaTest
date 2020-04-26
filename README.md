@@ -13,15 +13,18 @@ Actually, the appi can be tested with develop mode following this steps:
 The api run in localhost:5000, an acept the followings petitions:
 
   All the crud for users:
-    GET, localhost:5001/api/users (retrieve all users created)
-    POST localhost:5001/api/users with this data: { name, email, password, age (optional)}
-    PUT, PATCH localhost:5001/api/users/:userID { name, email, password, age } (the user id can be found in the get users)
-    DELETE localhost:5001/api/users/:userID
+  
+    - GET, localhost:5001/api/users (retrieve all users created).
+    - POST localhost:5001/api/users with this data: { name, email, password, age (optional)}.
+    - PUT, PATCH localhost:5001/api/users/:userID { name, email, password, age } (the user id can be found in the get users)
+    - DELETE localhost:5001/api/users/:userID
     
   Login with an existent user:
-    POST localhost:5001/api/login with the data: { email, password }
+  
+    - POST localhost:5001/api/login with the data: { email, password }
     This save the user id in the session cookie of the browser
   
   Logout with an existent user:
-    POST localhost:5001/api/login with the data: { email, password }
+  
+    - POST localhost:5001/api/login with the data: { email, password }
     This clean the session an the cookies in the browser for the user.

@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -12,7 +13,10 @@ var userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+	unique: true,
+	lowercase: true,
+	trim: true
     },
     create_date: {
         type: Date,
@@ -20,7 +24,18 @@ var userSchema = mongoose.Schema({
     }
 });
 
-var User = module.exports = mongoose.model('user', userSchema);
+userSchema.statics.authenticate = async (email, password) => {
+    const user = await User.findOne({ email: email });
+    if (user) {
+	if ( user.password === password ) {
+	    return user;
+	} else
+	    return null;
+    }
+    return null;
+}
+
+let User = module.exports = mongoose.model('User', userSchema);
 
 module.exports.get = (callback, limit) => {
     User.find(callback).limit(limit);

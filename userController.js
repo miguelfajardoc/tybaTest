@@ -29,7 +29,7 @@ exports.new = (req, res) => {
 	    res.json(err);
 	else {
 	    res.json( {
-		message: 'New contact created!',
+		message: 'New User created!',
 		data: user
             });
 	}

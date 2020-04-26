@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-let apiRoutes = require('./api-routes');
+const apiRoutes = require('./api-routes');
+const cookieSession = require('cookie-session');
 const mongoose = require('mongoose');
 
 
@@ -15,12 +16,22 @@ else
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieSession(
+    {
+    secret: "secret",
+    maxAge: 24 * 60 * 60 * 1000
+    }
+));
 
 let port = process.env.PORT || 5000;
 
 app.use('/api', apiRoutes);
 
-app.get('/', (req, res) => res.send('Hello World with Express'));
+
+app.get('/', (req, res) => {
+    console.log(req.session.views | 0);
+    res.send('Hello World with Express');
+});
 
 app.listen(port);
 
